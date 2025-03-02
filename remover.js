@@ -1,23 +1,34 @@
 // ==UserScript==
-// @name         Remove YouTube Icon
-// @version      0.1
-// @description  script to remove youtube icon
-// @match        https://www.youtube.com
+// @name         YouTube Homepage Blocker and Redirect (No Icon)
+// @namespace    http://tampermonkey.net/
+// @version      1.0
+// @description  script to block youtube homepage
+// @author       boris-on
+// @match        https://www.youtube.com/*
+// @run-at       document-start
 // ==/UserScript==
 
 (function() {
     'use strict';
-    var logoElement = document.getElementById("logo");
-    if (logoElement) {
-        logoElement.remove();
+
+    function checkAndRedirect() {
+        if (location.pathname === "/" || location.href.startsWith("https://www.youtube.com/?")) {
+            location.href = "https://www.youtube.com/feed/subscriptions";
+        }
     }
 
-    var homeLink = document.querySelector("#logo a");
-    if (homeLink) {
-        homeLink.removeAttribute("href");
-        homeLink.removeAttribute("title");
-        homeLink.addEventListener("click", function(event) {
-            event.preventDefault();
-        });
-    }
+    const hideLogo = () => {
+        const logo = document.querySelector('a#logo');
+        if (logo) {
+            logo.style.display = 'none';
+        }
+    };
+
+    checkAndRedirect();
+
+    setInterval(() => {
+        checkAndRedirect();
+        hideLogo();
+    }, 500);
+
 })();
