@@ -1,6 +1,6 @@
-# YouTube Icon Remover
+# YouTube Homepage Blocker
 
-This repository contains a script that allows you to remove the YouTube icon from a web page.
+This repository contains a script that allows you to block YouTube homepage.
 
 ## Usage
 
